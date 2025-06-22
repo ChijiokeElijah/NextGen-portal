@@ -1,0 +1,132 @@
+const TeacherModel = require('../Models/TeacherModel')
+const sendMail = require('../Email Service/Email') 
+const otp_generator = require('otp-generator')
+const bcrypt = require('bcrypt')
+
+ 
+
+const register = async (req, res) => {
+    
+    try {
+        const isUserExisting = await TeacherModel.findOne({email: req.body.email})
+        
+
+        if (isUserExisting){
+            console.log("User already exists")
+            return res.status(400).json({message: `You have registered already`})
+        }
+       
+        const verificationToken = otp_generator.generate(6, {
+            upperCaseAlphabets: false,
+            specialChars: false
+        })
+
+        const expires = new Date
+
+        expires.setMinutes(expires.getMinutes() + 1)
+
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const hashed_confirmpassword = await bcrypt.hash(req.body.confirm_password, 10)
+
+
+
+        const  newUser = new TeacherModel({
+        email: req.body.email,
+        FullName: req.body.FullName,
+        password: hashedPassword,
+        confirm_password: hashed_confirmpassword,
+        verificationToken:{
+            token: verificationToken,
+            expires: expires
+        }
+    
+        
+    })
+    await newUser.save()
+    
+    const emailbody = `<p>Please click on the link to verify your account. <b>http://localhost:3001/user/verify/${verificationToken}</b></p>`
+    const subject = 'Verification Email'
+   
+    await sendMail(req.body.email, subject, emailbody)
+    
+    
+    res.json("User Registered Succesfully!")
+    // console.log(newUser)
+    } catch (error) {
+        res.json(error)
+        // console.log(error)
+    }
+}
+
+const verifyTeacher = async (req, res) =>{
+    try {
+        // console.log(res.params);
+        const{token} = req.params
+
+        const isTokenValid = await TeacherModel.findOne(
+        {
+            'verificationToken.token': token, 
+            'verificationToken.expires':{$gt: new Date()}
+        })
+        // console.log(isTokenValid)
+
+        if(!isTokenValid){
+            return res.send(`<p>Token invalid or Expired.</p><a href='http://localhost:3001/user/resendVerification/${token}'>Resend verification mail</a>`)
+        }
+
+        if(isTokenValid.isVerified){
+            return res.send("Account already verified. Please login.")
+        }
+
+        isTokenValid.isVerified =  true
+
+        await isTokenValid.save()
+        
+        res.send('Account verified successfully')
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+const resendVerification = async (req, res) =>{
+    try {
+        const{token} = req.params
+        
+        const user = await TeacherModel.findOne(
+            {
+            'verificationToken.token': token, 
+            'isVerified': false
+            })
+        
+        const verificationToken = otp_generator.generate(7, {
+            upperCaseAlphabets: false,
+            specialChars: false
+        })
+
+        const expires = new Date
+
+        expires.setMinutes(expires.getMinutes() + 1)
+
+        user.verificationToken= {
+            expires : expires,
+            token: verificationToken
+        }
+  
+    await user.save()
+
+    const emailbody = `<p>Please click on the link to verify your account. <b>http://localhost:3001/user/verify/${verificationToken}</b></p>`
+    const subject = 'Verification Email'
+   
+    await sendMail(user.email, subject, emailbody)
+
+    res.send('Check your mail for a new verification link')
+
+    } catch (error) {
+        res.send('Something went wrong!')
+        
+    }
+}
+ 
+module.exports = {register, verifyTeacher, resendVerification};
