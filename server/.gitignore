@@ -1,4 +1,4 @@
-*.env
-.vercel
-
-.vercel
+# .gitignore
+.env
+.env.local
+.env.*.local
