@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* app/globals.css */
+@import 'react-toastify/dist/ReactToastify.css';
+
 
 @tailwind base;
 @tailwind components;

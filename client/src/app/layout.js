@@ -1,3 +1,6 @@
+
+import { ToastContainer } from 'react-toastify';
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/Layout";
@@ -25,6 +28,7 @@ export default function RootLayout({ children }) {
       >
         <Layout/>
         {children}
+         <ToastContainer position="top-right" autoClose={3000} />
       </body>
     </html>
   );

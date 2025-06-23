@@ -1,5 +1,9 @@
 import Head from 'next/head';
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
+
 export default function Home() {
   return (
     <>

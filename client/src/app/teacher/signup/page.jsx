@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from 'react-toastify';
 
 export default function page() {
   
@@ -26,7 +26,8 @@ const handleInputChange = (e) =>{
 const handleSubmit = async (e) => {
     e.preventDefault();
     // setLoading(true)
-    try {
+    if(userDetails.password === userDetails.confirm_password){
+      try {
         await axios.post(
           "http://localhost:3001/user/register", 
           //
@@ -56,6 +57,11 @@ const handleSubmit = async (e) => {
       password: "",
       confirm_password: "",
     })
+    }else{
+      console.log('Password does not match!')
+      toast.error('Password does not match!')
+    }
+    
   };
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen">
