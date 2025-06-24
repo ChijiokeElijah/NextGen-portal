@@ -5,7 +5,6 @@ const TeacherSchema = new mongoose.Schema({
     FullName:{
         type: String
     },
-    
     email:{
         type: String,
         unique: true

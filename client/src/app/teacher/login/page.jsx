@@ -1,11 +1,49 @@
 'use client'
 import React, {useState} from 'react'
+import axios from "axios"
+import { toast } from 'react-toastify';
 
 export default function page() {
   const [formData, setFormData] = useState({
     email: '',
     password:''
   })
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("formData:", formData)
+    // setLoading(true)
+      try {
+       const response =  await axios.post(
+          "http://localhost:3001/user/login", 
+          //
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: false, // Only if using cookies/sessions
+          }
+        );
+        toast.success(response.data.message);
+        
+     
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message || "Login failed");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+      
+    }
+    
+    // setLoading(false)
+    setFormData({
+      email: "",
+      password: "",
+    })
+    
+
+}
   const inputChange = (e) =>{
     const {name, value} = e.target
 
@@ -14,6 +52,7 @@ export default function page() {
       [name]: value
     }))
   }
+  
 
   return (
      <div className="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -21,7 +60,7 @@ export default function page() {
   <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
     <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">Form Teacher Login</h2>
 
-    <form action="/login-teacher" method="POST" className="space-y-5">
+    <form onSubmit={handleSubmit} method="POST" className="space-y-5">
       {/* <!-- Email --> */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email Address</label>

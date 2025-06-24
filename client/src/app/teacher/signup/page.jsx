@@ -58,7 +58,6 @@ const handleSubmit = async (e) => {
       confirm_password: "",
     })
     }else{
-      console.log('Password does not match!')
       toast.error('Password does not match!')
     }
     

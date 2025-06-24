@@ -1,4 +1,5 @@
 const TeacherModel = require('../Models/TeacherModel')
+// import TeacherModel from '../Models/TeacherModel'
 const sendMail = require('../Email Service/Email') 
 const otp_generator = require('otp-generator')
 const bcrypt = require('bcrypt')
@@ -58,6 +59,37 @@ const register = async (req, res) => {
     }
 }
 
+
+const login = async (req, res) => {
+  try {
+    const isUserExisting = await TeacherModel.findOne({ email: req.body.email });
+
+    if (!isUserExisting) {
+      return res.status(400).json({ message: `User with this email doesn't exist.` });
+    }
+
+    if (!isUserExisting.isVerified) {
+      return res.status(400).json({ message: `User is not verified. Please click the link in your email to verify.` });
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(req.body.password, isUserExisting.password);
+    
+
+
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
+
+    // TODO: Create a JWT here if needed
+
+    return res.status(200).json({ message: "User logged in successfully" });
+
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
 const verifyTeacher = async (req, res) =>{
     try {
         // console.log(res.params);
@@ -89,6 +121,7 @@ const verifyTeacher = async (req, res) =>{
         
     }
 }
+
 
 const resendVerification = async (req, res) =>{
     try {
@@ -129,4 +162,4 @@ const resendVerification = async (req, res) =>{
     }
 }
  
-module.exports = {register, verifyTeacher, resendVerification};
+module.exports = {register, verifyTeacher, resendVerification, login};
