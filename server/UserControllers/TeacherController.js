@@ -27,7 +27,11 @@ const register = async (req, res) => {
         expires.setMinutes(expires.getMinutes() + 1)
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const hashed_confirmpassword = await bcrypt.hash(req.body.confirm_password, 10)
+
+        if (password !== confirm_password) {
+            return res.status(400).json({ message: "Passwords do not match" });
+        }
+       //onst hashed_confirmpassword = await bcrypt.hash(req.body.confirm_password, 10)
 
 
 
@@ -35,7 +39,7 @@ const register = async (req, res) => {
         email: req.body.email,
         FullName: req.body.FullName,
         password: hashedPassword,
-        confirm_password: hashed_confirmpassword,
+        //confirm_password: hashed_confirmpassword,
         verificationToken:{
             token: verificationToken,
             expires: expires
@@ -51,11 +55,12 @@ const register = async (req, res) => {
     await sendMail(req.body.email, subject, emailbody)
     
     
-    res.json("User Registered Succesfully!")
+    res.status(200).json({message: "Verification link sent to your email"})
     // console.log(newUser)
     } catch (error) {
-        res.json(error)
-        // console.log(error)
+        console.log(error)
+        res.status(500).json({message: "Something went wrong!"})
+        
     }
 }
 

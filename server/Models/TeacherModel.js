@@ -12,9 +12,6 @@ const TeacherSchema = new mongoose.Schema({
     password:{
         type: String
     },
-    confirm_password:{
-        type: String
-    },
     isVerified:{
         type: Boolean,
         default: false

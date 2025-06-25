@@ -39,7 +39,7 @@ const handleSubmit = async (e) => {
             withCredentials: false, // Only if using cookies/sessions
           }
         );
-        toast.success("Registration Completed!");
+        toast.success(response.data.message);
      
     } catch (error) {
       if (axios.isAxiosError(error)) {
