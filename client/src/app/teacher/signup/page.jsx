@@ -28,7 +28,7 @@ const handleSubmit = async (e) => {
     // setLoading(true)
     if(userDetails.password === userDetails.confirm_password){
       try {
-        await axios.post(
+        const response = await axios.post(
           "http://localhost:3001/user/register", 
           //
           userDetails,
