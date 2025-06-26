@@ -3,6 +3,7 @@ const TeacherModel = require('../Models/TeacherModel')
 const sendMail = require('../Email Service/Email') 
 const otp_generator = require('otp-generator')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
  
 
@@ -80,14 +81,21 @@ const login = async (req, res) => {
     const isPasswordCorrect = await bcrypt.compare(req.body.password, isUserExisting.password);
     
 
-
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
 
     // TODO: Create a JWT here if needed
 
-    return res.status(200).json({ message: "User logged in successfully" });
+    const jwtPayload = {
+        id: isUserExisting._id
+    }
+
+    const token = jwt.sign(jwtPayload,process.env.SECRET, {expiresIn: '24h'})
+
+    console.log(token)
+
+    return res.status(200).json({ message: "User logged in successfully", token });
 
   } catch (error) {
     console.error("Login error:", error);
