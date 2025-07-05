@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import Loader from "@/components/Loader";
 
-export default function page() {
-  const [loading, setLoading] = useState();
+export default function Page() {
+  const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState({
     FullName: "",
     email: "",
@@ -60,6 +60,7 @@ export default function page() {
     } else {
       toast.error("Password does not match!");
     }
+    setLoading(false);
   };
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -149,28 +150,13 @@ export default function page() {
             />
           </div>
 
-          {/* <!-- Assigned Class --> */}
-          {/* <div>
-        <label htmlFor="assigned_class" className="block text-sm font-medium text-gray-600">Assigned Class</label>
-        <select value={userDetails.assigned_class} id="assigned_class" name="assigned_class" required
-          className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" onChange={handleInputChange}>
-          <option value="">-- Select Class --</option>
-          <option value="JS_1">JS 1</option>
-          <option value="JS_2">JS 2</option>
-          <option value="JS_3">JS 3</option>
-          <option value="SS_1">SS 1</option>
-          <option value="SS_2">SS 2</option>
-          <option value="SS_3">SS 3</option>
-        </select>
-      </div> */}
-
           {/* <!-- Submit Button --> */}
           <div>
             <button
               type="submit"
               className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              {loading ? <Loader /> : Register}
+              {loading ? <Loader /> : "Register"}
             </button>
           </div>
         </form>
