@@ -1,5 +1,4 @@
 const TeacherModel = require('../Models/TeacherModel')
-// import TeacherModel from '../Models/TeacherModel'
 const sendMail = require('../Email Service/Email') 
 const otp_generator = require('otp-generator')
 const bcrypt = require('bcrypt')
