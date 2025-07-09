@@ -27,7 +27,7 @@ const TeacherSchema = new mongoose.Schema({
         token: String,
         expires: Date
     }
-    
+       
 
 })
 

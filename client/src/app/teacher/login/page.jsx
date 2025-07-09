@@ -26,6 +26,7 @@ const handleSubmit = async (e) => {
         );
         toast.success(response.data.message);
         
+        localStorage.setItem("token", response.data.token);
      
     } catch (error) {
       if (axios.isAxiosError(error)) {

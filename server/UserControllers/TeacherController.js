@@ -22,6 +22,7 @@ const register = async (req, res) => {
             specialChars: false
         })
 
+       
         const expires = new Date
 
         expires.setMinutes(expires.getMinutes() + 1)
