@@ -1,27 +1,66 @@
-
-import React from 'react';
+"use client";
+import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 
 const page = () => {
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("teacher/login");
+      return;
+    }
+
+    try {
+      const decoded = jwtDecode(token);
+
+      // if (decoded.role !== "teacher") {
+      //   toast.error("Unauthorized access");
+      //   router.push("/unauthorized");
+      //   return;
+      // }
+
+      setTeacher(decoded); // Set decoded teacher data
+      setLoading(false);
+    } catch (err) {
+      console.error("Token decode failed", err);
+      router.push("teacher/login");
+    }
+  }, []);
+
   return (
     <div className="flex min-h-screen bg-gray-100 font-sans">
-      
       {/* Sidebar */}
       <aside className="w-64 bg-blue-900 text-white p-6 hidden md:block">
         <h2 className="text-2xl font-bold mb-8">School Portal</h2>
         <nav className="space-y-4">
-          <a href="#" className="block hover:text-blue-300">🏠 Dashboard</a>
-          <a href="/teacher/my-classes" className="block hover:text-blue-300">📚 My Classes</a>
-          <a href="/teacher/register-student" className="block hover:text-blue-300">💬 Register Student</a>
-          <a href="/teacher/create-score" className="block hover:text-blue-300">📊 Create Result</a>
+          <a href="#" className="block hover:text-blue-300">
+            🏠 Dashboard
+          </a>
+          <a href="/teacher/my-classes" className="block hover:text-blue-300">
+            📚 My Classes
+          </a>
+          <a
+            href="/teacher/register-student"
+            className="block hover:text-blue-300"
+          >
+            💬 Register Student
+          </a>
+          <a href="/teacher/create-score" className="block hover:text-blue-300">
+            📊 Create Result
+          </a>
         </nav>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-6">
-        
         {/* Top Navbar */}
         <header className="bg-white shadow rounded-lg px-6 py-4 flex justify-between items-center mb-6">
-          <div className="text-lg font-semibold">Welcome, Mr./Ms. [TeacherName]</div>
+          <div className="text-lg font-semibold">
+            Welcome, Mr./Ms. [TeacherName]
+          </div>
           <div className="flex items-center gap-4">
             <span className="text-xl">🔔</span>
             <span className="text-xl">👤</span>
@@ -33,7 +72,6 @@ const page = () => {
 
         {/* Dashboard Widgets */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
           {/* Today's Schedule */}
           <div className="bg-white rounded-lg shadow p-5">
             <h3 className="text-lg font-semibold mb-3">Today's Schedule</h3>
@@ -59,7 +97,6 @@ const page = () => {
               <li>Class C – 25 Students</li>
             </ul>
           </div>
-
         </section>
       </main>
     </div>

@@ -26,6 +26,9 @@ const TeacherSchema = new mongoose.Schema({
     verificationToken:{
         token: String,
         expires: Date
+    },
+    role:{
+        type: String
     }
        
 

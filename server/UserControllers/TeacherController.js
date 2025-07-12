@@ -28,6 +28,7 @@ const register = async (req, res) => {
         expires.setMinutes(expires.getMinutes() + 1)
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const role = 'teacher'
 
         // if (password !== confirm_password) {
         //     return res.status(400).json({ message: "Passwords do not match" });
@@ -41,6 +42,7 @@ const register = async (req, res) => {
         FullName: req.body.FullName,
         password: hashedPassword,
         confirm_password: hashed_confirmpassword,
+        role:role,
         verificationToken:{
             token: verificationToken,
             expires: expires
@@ -88,10 +90,11 @@ const login = async (req, res) => {
     // TODO: Create a JWT here if needed
 
     const jwtPayload = {
-        id: isUserExisting._id
+        id: isUserExisting._id,
+        role: 'teacher'
     }
 
-    const token = jwt.sign(jwtPayload,process.env.SECRET, {expiresIn: '24h'})
+    const token = jwt.sign(jwtPayload,process.env.SECRET,  {expiresIn: '24h'})
 
     console.log(token)
 
