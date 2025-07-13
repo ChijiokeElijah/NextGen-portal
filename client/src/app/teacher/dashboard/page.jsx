@@ -9,24 +9,24 @@ const page = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      router.push("teacher/login");
+      router.push("/teacher/login");
       return;
     }
 
     try {
       const decoded = jwtDecode(token);
 
-      // if (decoded.role !== "teacher") {
-      //   toast.error("Unauthorized access");
-      //   router.push("/unauthorized");
-      //   return;
-      // }
+      if (decoded.role !== "teacher") {
+        toast.error("Unauthorized access");
+        router.push("/unauthorized");
+        return;
+      }
 
-      setTeacher(decoded); // Set decoded teacher data
-      setLoading(false);
+      // setTeacher(decoded); // Set decoded teacher data
+      // setLoading(false);
     } catch (err) {
       console.error("Token decode failed", err);
-      router.push("teacher/login");
+      router.push("/teacher/login");
     }
   }, []);
 
