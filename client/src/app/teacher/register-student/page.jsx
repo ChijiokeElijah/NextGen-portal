@@ -38,7 +38,10 @@ const page = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Full Name */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-600">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-600"
+              >
                 Full Name
               </label>
               <input
@@ -54,7 +57,10 @@ const page = () => {
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-600"
+              >
                 Email Address
               </label>
               <input
@@ -70,7 +76,10 @@ const page = () => {
 
             {/* Gender */}
             <div>
-              <label htmlFor="gender" className="block text-sm font-medium text-gray-600">
+              <label
+                htmlFor="gender"
+                className="block text-sm font-medium text-gray-600"
+              >
                 Gender
               </label>
               <select
@@ -88,7 +97,10 @@ const page = () => {
 
             {/* Date of Birth */}
             <div>
-              <label htmlFor="dob" className="block text-sm font-medium text-gray-600">
+              <label
+                htmlFor="dob"
+                className="block text-sm font-medium text-gray-600"
+              >
                 Date of Birth
               </label>
               <input
@@ -103,7 +115,10 @@ const page = () => {
 
             {/* Class */}
             <div>
-              <label htmlFor="class" className="block text-sm font-medium text-gray-600">
+              <label
+                htmlFor="class"
+                className="block text-sm font-medium text-gray-600"
+              >
                 Class
               </label>
               <select
@@ -122,7 +137,10 @@ const page = () => {
 
             {/* Admission Number */}
             <div>
-              <label htmlFor="admission_number" className="block text-sm font-medium text-gray-600">
+              <label
+                htmlFor="admission_number"
+                className="block text-sm font-medium text-gray-600"
+              >
                 Admission Number
               </label>
               <input
@@ -131,7 +149,7 @@ const page = () => {
                 name="admission_number"
                 onChange={handleInputChange}
                 required
-                placeholder="STU123456"
+                placeholder="NEXTGEN123456"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               />
             </div>

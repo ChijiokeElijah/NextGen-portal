@@ -1,57 +1,64 @@
 'use client'
 import React, { useState } from 'react';
+import { toast } from "react-toastify";
 
 const page = () => {
   const [formData, setFormData] = useState({
-    studentId: '',
-    subjectId: '',
-    sessionId: '',
-    termId: '',
-    score: '',
+    admission_number: "",
+    subjectId: "",
+    sessionId: "",
+    termId: "",
+    score: "",
   });
 
   const handleChange = (e) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
 
-    setFormData({ ...formData,
-       [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Submit logic here
-    console.log('Submitting score:', formData);
+    console.log("Submitting score:", formData);
+    toast.success("Score submitted!");
   };
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">Input Student Score</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
+          Input Student Score
+        </h2>
 
-        <form  className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Student Select */}
           <div>
-            <label htmlFor="studentId" className="block text-sm font-medium text-gray-700">
-              Select Student
+            <label
+              htmlFor="admission_number"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Admission Number
             </label>
-            <select
-              id="studentId"
-              name="studentId"
-              value={formData.studentId}
+
+            <input
+              type="text"
+              id="admission_number"
+              name="admission_number"
+              value={formData.admission_number}
               onChange={handleChange}
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="">-- Select Student --</option>
-              <option value="1">John Doe</option>
-              <option value="2">Jane Smith</option>
-              {/* Populate dynamically */}
-            </select>
+              placeholder="NEXTGEN123456"
+            />
           </div>
 
           {/* Subject Select */}
           <div>
-            <label htmlFor="subjectId" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="subjectId"
+              className="block text-sm font-medium text-gray-700"
+            >
               Subject
             </label>
             <select
@@ -63,15 +70,18 @@ const page = () => {
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">-- Select Subject --</option>
-              <option value="math">Mathematics</option>
-              <option value="eng">English</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="English">English</option>
               {/* Populate dynamically */}
             </select>
           </div>
 
           {/* Session Select */}
           <div>
-            <label htmlFor="sessionId" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="sessionId"
+              className="block text-sm font-medium text-gray-700"
+            >
               Academic Session
             </label>
             <select
@@ -90,7 +100,10 @@ const page = () => {
 
           {/* Term Select */}
           <div>
-            <label htmlFor="termId" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="termId"
+              className="block text-sm font-medium text-gray-700"
+            >
               Term
             </label>
             <select
@@ -102,15 +115,18 @@ const page = () => {
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">-- Select Term --</option>
-              <option value="first">First Term</option>
-              <option value="second">Second Term</option>
-              <option value="third">Third Term</option>
+              <option value="First Term">First Term</option>
+              <option value="Second Term">Second Term</option>
+              <option value="Third Term">Third Term</option>
             </select>
           </div>
 
           {/* Score Input */}
           <div>
-            <label htmlFor="score" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="score"
+              className="block text-sm font-medium text-gray-700"
+            >
               Score
             </label>
             <input
