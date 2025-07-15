@@ -2,25 +2,28 @@ const mongoose = require('mongoose');
 
 
 const ResultSchema = new mongoose.Schema({
-    FirstName:{
-        type: String
-    },
-    LastName:{
-        type: String
-    },
-    email:{
+    Admission_Number:{
         type: String,
-        unique: true
+        
     },
-    confirmPassword:{
+    Subject:{
         type: String
     },
-    RegNum:{
+    Session:{
+        type: String,
+    
+    },
+    Term:{
         type: String
+    },
+    Scores:{
+        type: Map,
+        of: Number,
+        default:{}
     }
 
 })
 
-const UserModel = mongoose.model('Result', ResultSchema)
+const ResultModel = mongoose.model('Result', ResultSchema)
 
-module.exports = UserModel
+module.exports = ResultModel

@@ -20,8 +20,8 @@ const page = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Submit logic here
-    console.log("Submitting score:", formData);
-    toast.success("Score submitted!");
+    try {
+    } catch (error) {}
   };
 
   return (
