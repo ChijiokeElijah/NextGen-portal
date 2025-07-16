@@ -5,7 +5,7 @@ import axios from "axios";
 
 const page = () => {
   const [formData, setFormData] = useState({
-    admission_number: "",
+    Admission_Number: "",
     subject: "",
     session: "",
     term: "",
@@ -21,6 +21,7 @@ const page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Submit logic here
+    console.log(formData);
     try {
       const response = await axios.post(
         "http://localhost:3001/user/registerScore",
@@ -48,7 +49,7 @@ const page = () => {
           {/* Student Select */}
           <div>
             <label
-              htmlFor="admission_number"
+              htmlFor="Admission_Number"
               className="block text-sm font-medium text-gray-700"
             >
               Admission Number
@@ -56,9 +57,9 @@ const page = () => {
 
             <input
               type="text"
-              id="admission_number"
-              name="admission_number"
-              value={formData.admission_number}
+              id="Admission_Number"
+              name="Admission_Number"
+              value={formData.Admission_Number}
               onChange={handleChange}
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
