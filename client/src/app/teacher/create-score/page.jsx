@@ -1,13 +1,14 @@
 'use client'
 import React, { useState } from 'react';
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const page = () => {
   const [formData, setFormData] = useState({
     admission_number: "",
-    subjectId: "",
-    sessionId: "",
-    termId: "",
+    subject: "",
+    session: "",
+    term: "",
     score: "",
   });
 
@@ -17,10 +18,22 @@ const page = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Submit logic here
     try {
+      const response = await axios.post(
+        "http://localhost:3001/user/registerScore",
+        //
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: false, // Only if using cookies/sessions
+        }
+      );
+      toast.success(response.data.message);
     } catch (error) {}
   };
 
@@ -62,9 +75,9 @@ const page = () => {
               Subject
             </label>
             <select
-              id="subjectId"
-              name="subjectId"
-              value={formData.subjectId}
+              id="subject"
+              name="subject"
+              value={formData.subject}
               onChange={handleChange}
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -79,15 +92,15 @@ const page = () => {
           {/* Session Select */}
           <div>
             <label
-              htmlFor="sessionId"
+              htmlFor="session"
               className="block text-sm font-medium text-gray-700"
             >
               Academic Session
             </label>
             <select
-              id="sessionId"
-              name="sessionId"
-              value={formData.sessionId}
+              id="session"
+              name="session"
+              value={formData.session}
               onChange={handleChange}
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -101,15 +114,15 @@ const page = () => {
           {/* Term Select */}
           <div>
             <label
-              htmlFor="termId"
+              htmlFor="term"
               className="block text-sm font-medium text-gray-700"
             >
               Term
             </label>
             <select
-              id="termId"
-              name="termId"
-              value={formData.termId}
+              id="term"
+              name="term"
+              value={formData.term}
               onChange={handleChange}
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"

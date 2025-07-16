@@ -33,6 +33,8 @@ app.get('/health', (req, res) => {
 });
 
 app.use("/user", require("./userRoutes/TeacherRoute"));
+app.use("/user", require("./userRoutes/ScoreRoute"));
+
 
 
 
