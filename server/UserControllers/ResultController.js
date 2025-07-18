@@ -3,7 +3,7 @@ const ResultModel = require('../Models/ResultModel')
 const registerScore = async (req, res) => {
     
     try {
-        const { Admission_Number, subject, score, session, term } = req.body;
+        const { Admission_Number, subject, score, session, term , student_class } = req.body;
 
         // const isUserExisting = await ResultModel.findOne({Admission_Number: req.body.Admission_Number})
         
@@ -11,6 +11,7 @@ const registerScore = async (req, res) => {
      const existingRecord = await ResultModel.findOne({
       Admission_Number: Admission_Number,
       Session: session,
+      Class: student_class,
       Term: term
     });
 
@@ -26,6 +27,7 @@ const registerScore = async (req, res) => {
         Admission_Number,
         Session: session,
         Term: term,
+        Class: student_class,
         Scores:{[subject]: score},
         
         

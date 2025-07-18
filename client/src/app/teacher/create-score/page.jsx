@@ -8,6 +8,7 @@ const page = () => {
     Admission_Number: "",
     subject: "",
     session: "",
+    student_class: "",
     term: "",
     score: "",
   });
@@ -86,6 +87,16 @@ const page = () => {
               <option value="">-- Select Subject --</option>
               <option value="Mathematics">Mathematics</option>
               <option value="English">English</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Physics">Physics</option>
+              <option value="Biology">Biology</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Economics">Economics</option>
+              <option value="Government">Government</option>
+              <option value="Further-Mathematics">Further Mathematics</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Lit-in-English">Lit-in-English</option>
+              <option value="Geography">Geography</option>
               {/* Populate dynamically */}
             </select>
           </div>
@@ -93,25 +104,49 @@ const page = () => {
           {/* Session Select */}
           <div>
             <label
-              htmlFor="session"
+              htmlFor="score"
               className="block text-sm font-medium text-gray-700"
             >
-              Academic Session
+              Session
             </label>
-            <select
+            <input
+              type="text"
               id="session"
               name="session"
               value={formData.session}
               onChange={handleChange}
               required
+              min="0"
+              max="100"
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              placeholder="2024/2025"
+            />
+          </div>
+          {/* CLASS */}
+          <div>
+            <label
+              htmlFor="student_class"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Class
+            </label>
+            <select
+              id="student_class"
+              name="student_class"
+              value={formData.student_class}
+              onChange={handleChange}
+              required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="">-- Select Session --</option>
-              <option value="2024_2025">2024/2025</option>
-              <option value="2025_2026">2025/2026</option>
+              <option value="">-- Select Class --</option>
+              <option value="JS 1">JS 1</option>
+              <option value="JS 2">JS 2</option>
+              <option value="JS 3">JS 3</option>
+              <option value="SS 1">SS 1</option>
+              <option value="SS 2">SS 2</option>
+              <option value="SS 3">SS 3</option>
             </select>
           </div>
-
           {/* Term Select */}
           <div>
             <label

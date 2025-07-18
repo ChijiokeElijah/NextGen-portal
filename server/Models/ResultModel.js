@@ -15,6 +15,10 @@ const ResultSchema = new mongoose.Schema({
         type: String,
         required: true 
     },
+    Class:{
+        type: String,
+        required: true
+    },
     Term:{
         type: String,
         required: true
